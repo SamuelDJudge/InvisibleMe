@@ -2,10 +2,6 @@ from Crypto.Cipher import AES
 import base64
 
 from user_input import *
-from encryption import *
-from decryption import *
-from creating_keys import *
-from column_operations import *
 
 def making_multiple_16(text):
     len_of_text = len(text)

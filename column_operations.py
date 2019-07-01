@@ -4,10 +4,10 @@ from pyspark.sql import SQLContext,SparkSession,Row
 from user_input import *
 from encryption import *
 from decryption import *
-from creating_keys import *
-from column_operations import *
+from creating_keys import key_dict, key_list
 
-def cleaning_data(input_row,key_dict,column_list):
+
+def cleaning_data(input_row):
     row_dict = {}
     if en_or_de.lower() == "encryption":
         split_row = input_row.split(delimiter)
@@ -21,10 +21,10 @@ def cleaning_data(input_row,key_dict,column_list):
             key = key_dict[column_index][0]
             init_vector = key_dict[column_index][1]
             if en_or_de.lower() == "encryption":
-                try:
-                    row_dict[str(column_index)] = str(encryption(a_column,key,init_vector))
-                except:
-                    row_dict[str(column_index)] = "INVALID ENTRY"
+#                try:
+                row_dict[str(column_index)] = str(encryption(a_column,key,init_vector))
+#                except:
+#                    row_dict[str(column_index)] = "INVALID ENTRY"
             elif en_or_de.lower() == "decryption":
                 try:
                     row_dict[str(column_index)] = str(decryption(a_column,key,init_vector))

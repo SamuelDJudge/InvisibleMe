@@ -5,8 +5,6 @@ import botocore
 from user_input import *
 from encryption import *
 from decryption import *
-from creating_keys import *
-from column_operations import *
 
 qwerty_list = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9','0']
 
@@ -58,3 +56,4 @@ def making_key_dict(en_or_de,column_List):
 output = making_key_dict(en_or_de,column_list)
 key_dict = output[0]
 key_list = output[1]
+
