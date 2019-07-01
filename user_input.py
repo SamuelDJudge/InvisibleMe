@@ -5,3 +5,5 @@ read_path = "s3://fecdatakeys/encrypted/part-00000-8def0398-3961-4a1d-9f0b-2e830
 delimiter = '|'
 en_or_de = "encryption"
 id_num = "part-00000-ab4cde60-93c1-4bdb-89d9-835cc498047f-c000"
+keys_write_path = "s3a://fecdatakeys/keys"
+keys_read_path = "s3://fecdatakeys/keys/part-00000-f4922dc0-b219-4ffe-9833-e63f9ccc0316-c000.csv"
