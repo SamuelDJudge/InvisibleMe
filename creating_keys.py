@@ -49,6 +49,8 @@ def making_key_dict(en_or_de,column_List):
 
     else:
         raise ValueError("You should have inputted 'encryption' or 'decryption' as your option")
-    return key_dict
+    return key_dict, key_list
 
-key_dict = making_key_dict(en_or_de,column_list)
+output = making_key_dict(en_or_de,column_list)
+key_dict = output[0]
+key_list = output[1]
