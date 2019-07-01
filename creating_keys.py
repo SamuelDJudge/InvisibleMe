@@ -8,21 +8,31 @@ from decryption import *
 
 qwerty_list = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9','0']
 
-def creating_a_key(qwerty_list):
+
+### This function randomly picks 16 characters from the QWERTY list specified above.
+### Two of these will be used as the key and initial vector for AES
+
+def creating_a_key(qwerty_list: list) -> str:
     key = ""
     for i in range(16):
         random_var = random.randint(0,len(qwerty_list)-1)
         key += qwerty_list[random_var]
     return key
 
-def creating_dict_of_keys(columns):
+### This function takes the columns to be encrypted and creates a dictionary with the following schema:
+### column_name = [column_key, column_initial_vector]
+
+def creating_dict_of_keys(columns: list) -> dict:
     num_of_cols = len(columns)
     key_dict = {}
     for a_col in columns:
         key_dict[a_col] = [creating_a_key(qwerty_list),creating_a_key(qwerty_list)]
     return key_dict
 
-def making_key_dict(en_or_de,column_List):
+### This function combines the previous function with the potential of DECRYPTING. 
+### Based on the user input, it creates the correct keys dictionary.
+
+def making_key_dict(en_or_de: str,column_list: list) -> (dict,list):
 
     if en_or_de.lower() == "encryption":
         key_dict = creating_dict_of_keys(column_list)
@@ -52,6 +62,8 @@ def making_key_dict(en_or_de,column_List):
     else:
         raise ValueError("You should have inputted 'encryption' or 'decryption' as your option")
     return key_dict, key_list
+
+### Universially naming the variables key_dict and key_list which will be used in "column_operations.py"
 
 output = making_key_dict(en_or_de,column_list)
 key_dict = output[0]
