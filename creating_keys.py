@@ -2,6 +2,8 @@ import random
 import boto3
 import botocore
 
+from user_input import *
+
 qwerty_list = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9','0']
 
 def creating_a_key(qwerty_list):
@@ -46,4 +48,7 @@ def making_key_dict(en_or_de,column_List):
             counter += 1
 
     else:
-        raise ValueError("You should have inputted 'encryption' or 'decryption' as your option") 
+        raise ValueError("You should have inputted 'encryption' or 'decryption' as your option")
+    return key_dict
+
+key_dict = making_key_dict(en_or_de,column_list)
