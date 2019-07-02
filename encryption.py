@@ -2,7 +2,6 @@
 from Crypto.Cipher import AES
 import base64
 
-from user_input import *
 ###########################################################################
 
 ### AES assumes that the message is a multiple of 16.
