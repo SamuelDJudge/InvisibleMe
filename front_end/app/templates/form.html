@@ -9,6 +9,18 @@
             {{ form.s3_bucket(size=32) }}
         </p>
         <p>
+            {{ form.write_path.label }}<br>
+            {{ form.write_path(size=32) }}
+        </p>
+        <p>
+            {{ form.en_or_de.label }}<br>
+            {{ form.en_or_de(size=32) }}
+        </p>
+        <p>
+            {{ form.delimiter.label }}<br>
+            {{ form.delimiter(size=32) }}
+        </p>
+        <p>
             {{ form.columns.label }}<br>
             {{ form.columns(size=32) }}
         </p>

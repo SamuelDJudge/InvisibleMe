@@ -14,7 +14,13 @@ def login():
     form = information_form()
     if form.validate_on_submit():
         s3_bucket_location = form.s3_bucket.data
-        columns = form.columns.data.split(',')
-        os.system('ls')
+        write_path = form.write_path.data
+        columns = form.columns.data
+        en_or_de = form.en_or_de.data
+        delimiter = form.delimiter.data
+        #command = "spark-submit run.py "+str(s3_bucket_location)+" "+str(write_path)+" "+str(columns)+" "+str(en_or_de)+" "+str(delimiter)
+        command = "python /Users/samueljudge/Documents/GitHub/InvisibleMe/python/run.py "+str(s3_bucket_location)+" "+str(write_path)+" "+str(columns)+" "+str(en_or_de)+" "+str(delimiter)
+        print(command)
+        os.system(command)
         return redirect('/success')
     return render_template('form.html', form=form)

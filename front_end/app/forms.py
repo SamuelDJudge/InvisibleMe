@@ -4,5 +4,8 @@ from wtforms.validators import DataRequired
 
 class information_form(FlaskForm):
     s3_bucket = StringField('S3 Bucket Location', validators=[DataRequired()])
+    write_path = StringField('Write Path', validators=[DataRequired()])
     columns = StringField('Columns', validators=[DataRequired()])
+    en_or_de = StringField('Encryption or Decryption?', validators=[DataRequired()])
+    delimiter = StringField('Delimiter (e.g. . , | tab newline)', validators=[DataRequired()])
     submit = SubmitField('Submit')
