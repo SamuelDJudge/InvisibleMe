@@ -1,17 +1,27 @@
 # Imports
-import sys
-from run.py import *
+file = open("system_info.csv",r+)
+for a_line in file:
+    a_line = a_line.split(',')
+    column_list_str = a_line[2].split(',')
+    column_list = []
+    for a_string in column_list_str:
+        column_list.append(int(a_string))
+        file_path = str(a_line[0])
+        write_path = str(a_line[1])
+        en_or_de = str(a_line[3])
+        delimiter_list = ["period", "comma", "line", "tab", "newline"]
+        delimiter_charaters = [".",",","|","\t","\n"]
+        delimiter = delimiter_charaters[delimiter_list.index(str(sys.argv[5]))]
 
-column_list_str = sys.argv[3].split(',')
-column_list = []
-for a_string in column_list_str:
-    column_list.append(int(a_string))
-file_path = str(sys.argv[1])
-write_path = str(sys.argv[2])
-en_or_de = str(sys.argv[4])
-delimiter_list = ["period", "comma", "line", "tab", "newline"]
-delimiter_charaters = [".",",","|","\t","\n"]
-delimiter = delimiter_charaters[delimiter_list.index(str(sys.argv[5]))]
+
+
+
+
+
+
+
+
+
 #column_list = [7,11]
 #file_path = "s3a://fecpoliticaldata/small_data.tex"
 #write_path = "s3a://fecdatakeys/encrypted"
