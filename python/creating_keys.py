@@ -2,6 +2,24 @@
 import random
 import boto3
 import botocore
+from user_input import *
+
+file = open("/home/ubuntu/InvisibleMe/python/system_info.csv","r+")
+for a_line in file:
+    a_line = a_line[:-2]
+    a_line = a_line.split(',')
+    column_list_str = a_line[4:]
+    column_list = []
+    for a_string in column_list_str:
+        column_list.append(int(a_string))
+    file_path = str(a_line[0])
+    write_path = str(a_line[1])
+    en_or_de = str(a_line[2])
+    delimiter_list = ["period", "comma", "line", "tab", "newline"]
+    delimiter_charaters = [".",",","|","\t","\n"]
+    delimiter = delimiter_charaters[delimiter_list.index(str(a_line[3]))]
+file.close()
+print("##################", column_list,file_path,write_path,delimiter,"#################")
 
 qwerty_list = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9','0']
 
