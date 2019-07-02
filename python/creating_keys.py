@@ -30,7 +30,7 @@ def creating_dict_of_keys(columns: list) -> dict:
     return key_dict
 
 # Choosing the correct key dictionary based on encryption or decryption
-### This function combines the previous function with the potential of DECRYPTING. 
+### This function combines the previous function with the potential of DECRYPTING.
 ### Based on the user input, it creates the correct keys dictionary.
 
 def making_key_dict(en_or_de: str,column_list: list) -> (dict,list):
@@ -42,8 +42,8 @@ def making_key_dict(en_or_de: str,column_list: list) -> (dict,list):
             key_list.append([a_key, key_dict[a_key][0],key_dict[a_key][1]])
 
     elif en_or_de.lower() == "decryption":
-        bucket_name = 'fecdatakeys' 
-        key = "keys/"+id_num+".csv" 
+        bucket_name = 'fecdatakeys'
+        key = "keys/"+id_num+".csv"
         s3 = boto3.resource('s3')
         try:
             s3.Bucket(bucket_name).download_file(key, "keys_"+id_num+".csv")
@@ -64,9 +64,8 @@ def making_key_dict(en_or_de: str,column_list: list) -> (dict,list):
         raise ValueError("You should have inputted 'encryption' or 'decryption' as your option")
     return key_dict, key_list
 
+# Variables
 ### Universially naming the variables key_dict and key_list which will be used in "column_operations.py"
-
 output = making_key_dict(en_or_de,column_list)
 key_dict = output[0]
 key_list = output[1]
-

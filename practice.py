@@ -3,7 +3,6 @@
 #from Crypto.Cipher import AES
 #import base64
 import time
-import datetime
 from pyspark import SparkConf, SparkContext
 from pyspark.sql import SQLContext,SparkSession,Row
 #import boto3
@@ -123,8 +122,8 @@ def making_key_dict(en_or_de,column_List):
             key_list.append([a_key, key_dict[a_key][0],key_dict[a_key][1]])
 
     elif en_or_de.lower() == "decryption":
-        bucket_name = 'fecdatakeys' 
-        key = "keys/"+id_num+".csv" 
+        bucket_name = 'fecdatakeys'
+        key = "keys/"+id_num+".csv"
         s3 = boto3.resource('s3')
         try:
             s3.Bucket(bucket_name).download_file(key, "keys_"+id_num+".csv")
@@ -142,7 +141,7 @@ def making_key_dict(en_or_de,column_List):
             counter += 1
 
     else:
-        raise ValueError("You should have inputted 'encryption' or 'decryption' as your option") 
+        raise ValueError("You should have inputted 'encryption' or 'decryption' as your option")
 #################################################################################
 
 
@@ -172,7 +171,7 @@ def cleaning_data(input_row):
             except:
                 split_row[column_index] = "INVAID ENTRY"
         else:
-            raise ValueError("You should have inputted 'encryption' or 'decryption' as your option")            
+            raise ValueError("You should have inputted 'encryption' or 'decryption' as your option")
     return Row(name = split_row[column_list[0]-1], zip_code = split_row[column_list[1]-1])
 #################################################################################
 

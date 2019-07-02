@@ -1,0 +1,15 @@
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }} - InvisibleMe</title>
+      {% else %}
+      <title>InvisibleMe</title>
+      {% endif %}
+    </head>
+    <body>
+        <div>Samuel D. Judge: <a href="https://www.linkedin.com/in/samueldjudge/">LinkedIn</a></div>
+        <div>InvisibleMe: <a href="https://github.com/SamuelDJudge/InvisibleMe">GitHub</a></div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
