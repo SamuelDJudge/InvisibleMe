@@ -1,12 +1,13 @@
-########################### IMPORTS #######################################
+# Imports
 from pyspark.sql import Row
 
 from user_input import *
 from encryption import *
 from decryption import *
 from creating_keys import key_dict
-###########################################################################
 
+
+# Cleaning Data
 
 ### This function takes each line from the input file, checks to see if the column
 ### is one of the columns specified to be encrypted or decrypted, performs that operation

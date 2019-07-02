@@ -1,8 +1,6 @@
-########################### IMPORTS #######################################
+# Imports
 from Crypto.Cipher import AES
 import base64
-
-###########################################################################
 
 ### AES assumes that the message is a multiple of 16.
 ### This function adds empty space to the end to make up the rest of those characters, if needed
@@ -12,7 +10,6 @@ def making_multiple_16(text: str) -> str:
         text += " "
         len_of_text = len(text)
     return text
-
 
 ### This code uses AES to encrypt the message and then turns it into a Base 64 encoding to confirm that
 ### it displays and reads correctly.
