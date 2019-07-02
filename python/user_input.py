@@ -1,7 +1,7 @@
 # Imports
 file = open("/home/ubuntu/InvisibleMe/python/system_info.csv","r+")
 for a_line in file:
-    a_line = a_line[:-2]
+    a_line = a_line[:-1]
     a_line = a_line.split(',')
     column_list_str = a_line[4:]
     column_list = []

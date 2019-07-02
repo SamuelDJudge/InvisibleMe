@@ -31,7 +31,8 @@ print("##################", column_list,file_path,write_path,delimiter,"########
 ### and then returns a Row with schema:
 ### "i" = transformed row[i] or i = transformed row[i] based on whether the row was specified or not.
 
-def cleaning_data(input_row: list) -> Row:
+#def cleaning_data(input_row: list) -> Row:
+def cleaning_data(input_row):
     row_dict = {}
 
     if en_or_de.lower() == "encryption":
