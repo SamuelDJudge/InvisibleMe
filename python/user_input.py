@@ -1,14 +1,17 @@
 # Imports
 import sys
+from run.py import *
 
 column_list_str = sys.argv[3].split(',')
-columns = []
+column_list = []
 for a_string in column_list_str:
-    columns.append(int(a_string))
-file_path = sys.argv[1]
-write_path = sys.argv[2]
-en_or_de = sys.argv[4]
-delimiter = sys.argv[5]
+    column_list.append(int(a_string))
+file_path = str(sys.argv[1])
+write_path = str(sys.argv[2])
+en_or_de = str(sys.argv[4])
+delimiter_list = ["period", "comma", "line", "tab", "newline"]
+delimiter_charaters = [".",",","|","\t","\n"]
+delimiter = delimiter_charaters[delimiter_list.index(str(sys.argv[5]))]
 #column_list = [7,11]
 #file_path = "s3a://fecpoliticaldata/small_data.tex"
 #write_path = "s3a://fecdatakeys/encrypted"

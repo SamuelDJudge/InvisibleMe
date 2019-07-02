@@ -6,6 +6,9 @@ from pyspark.sql import SQLContext,SparkSession
 from creating_keys import *
 from column_operations import *
 
+
+
+
 # Timer
 initial_time = time.time()
 
@@ -15,7 +18,7 @@ conf = conf.setMaster("local[*]")
 sc   = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
-if __name__ == "__main__":
+if True:
 # Spark Encryption
     initial_file = sc.textFile(file_path).map(cleaning_data)
     data_frame = initial_file.toDF()
