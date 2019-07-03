@@ -4,7 +4,8 @@
 1. [Problem](README.md#problem)
 1. [Basic Strategy](README.md#basic-strategy)
 1. [Assumptions](README.md#assumptions)
-1. [Files in Repo](README.md#functions-in-program)
+1. [Files in Repo](README.md#files-in-repo)
+1. [Future Work](README.md#future-work)
 1. [Contact Information](README.md#contact-information)
 
 ## Problem
@@ -20,54 +21,68 @@ In the age of machine learning, the characteristics of an individual that can be
 
 ![Pipeline](pipeline_sdj.png)
 
+The strategy was to allow the user to input **beginning file location**, **write location**, **columns** to be encrypted (or decrypted), whether you want it **encrypted** or **decrypted**, and the **delimiter** separating data on a Flask front end. This is then fed into a Spark program which pulls the correct file, distributes it across multiple nodes, encrypts the information on each node, then returns it back to the main node. From here, the *newly encrypted* file is written back into the EC2 container and the key for the encryption is stored in my personal EC2 bucket. An illustration of my chosen pipeline can be shown above. 
+
+For a majority of the testing of my code, I used [FEC Donation Data](https://www.fec.gov/data/browse-data/?tab=bulk-data) and [White Pages](http://www.odditysoftware.com/download_databases/29_white-pages-data_1.html). 
+
 
 ## Assumptions
 * I am assuming that the user is storing their information in an Amazon S3 bucket. 
 * I am assuming that the information is relational and organized in a .csv type format, though the program does allow for flexibility as to what the delimiter is. 
-* There are multiple requirements for technology, specified in the _requirements.txt_ file. 
+* There are multiple requirements for technology, specified in the **requirements.txt** file. 
+* The assumption is that the *master* EC2 node has sufficient space to hold the data. This can be modified by writing to a MySQL database first, though the time cost is signficantly larger. 
 
 
-## Functions in Program 
+## Files in Repo 
 
-### creating_department_products_dictionary
-
-#### input: 
-*products_file_name* -- This should be a STRING and end with .csv. You simply need to key in the 'products.csv' (or otherwise named) file. Assuming that your .csv has product_id first and department_id last, this will work. 
+### column_operations.py
 
 #### description: 
-This function was intended to create the dictionaries mentioned above. Throughout the code, they are called departments and products. It also counts the number of errors produced by reading the data file, though more descriptions of those can be found in the code itself as comments. 
+This file has just one function, **cleaning_data**. This function takes in a row and based on whether it was specified that a particular column should be *encrypted* or *decrypted*, it performs this operation on that column but leaves the rest of the column untouched. This is returned in the format of Row(key1 = value1, key2 = value2, ...) where the keys are merely the column names (assumed to be 1, 2, 3, 4,... unless otherwise specified).    
 
-### reordered_value
 
-#### input: 
-*value* -- This should be a STRING. The function expects a '0' or a '1' as a string (which in the data files indicates oredered v. not). It will return "False" if the former and "True" if the latter. This will return "Error" as a string if anything else is inputted.  
+### creating_keys.py
 
 #### description: 
-This simply tells us if we have a valid entry for reordered or not and then what that value is. We use the truth value in a if statement in the next function. 
+This file contains three functions. **creating_a_key** simply takes a pre-specified list (called *qwerty_list* through this program) and returns a random sampling (with replacement) of 16 of these elements and returns a string of them. 
+The next function, **creating_dict_of_keys** simply employs **creating_a_key** 2n times (where n is the number of columns to be encrypted) and stores this information in a dictionary where the schema is column_id = (key, initial_vector). This allows for each column to have a unique key in order to increase the security of the information. 
+The final function, **making_key_dict** takes the specification of *encryption* or *decryption* and creates the appropriate key dictionary, either by pulling a previously saved dictionary (see the descryption in Basic Strategy) or by creating a new one by calling **creating_dict_of_keys**. 
+The bottom of this file then specifies two variables which will be used throughout, *key_dict* and *key_list*. Note that they key_list is just a list version of the key_dict. They are used for slightly different purposes through the function depending on which is faster/easier. 
 
-### collecting_data
-
-#### input: 
-*products_file_name* and *orders_file_name* -- These should both be STRINGs and end with .csv. The products_file_name is the same as listed in the first function above. The *orders_file_name* is the list of all orders. Again, under the assumption that the order ID is listed second and the department ID is listed last, this will work. 
-
-#### description: 
-This will take in the two dictionaries created by the function **creating_department_products_dictionary**, run through all orders in the input order data, check it against the products dictionary, and then adjust the [a,b,c] list in the departments dictionary accordingly. It also checks for several different types of errors, though those can be seen as comments in the code. It will output the departments dictionary, with all data accounted for in those lists. 
-
-### writing_to_new_file
-
-#### input: 
-*data_dictionary* and *report_file_name* -- These should both be STRINGs and end with .csv. The *data_dictionary* is what is produced by the function **collecting_data**, but this function will work for any dictionary that has associated elements [a,b,c] as a list. The report_file_name is simply whatever you intend for a name as a file name. 
+### decryption.py
 
 #### description: 
-This program uses writelines to write all the information to a .csv file (name of your choosing: i.e. report_file_name). It's intended purpose is to consolidate the information collected from the program **collecting_data**. 
+The only function is **decryption**. This simply takes a base64 message that has been encrypted using a specified key and initial vector, returns the object to a byte string, and then decodes the string. 
 
-### combining_functions
-
-#### input: 
-*products_file_name*,*orders_file_name*, and *report_file_name* -- These should all be STRINGs and end with .csv. Each of these are described above. 
+### encryption.py
 
 #### description: 
-This just consolidates and runs **collecting_data**(*products_file_name*,*orders_file_name*) and **writing_to_new_file**(*products_file_name*,*orders_file_name*, *report_file_name*) at the same time rather than having to enter them individually. 
+The first function is **making_multiple_16**. This function exists because AES assumes the message length to be a multiple of 16. This function takes a string of any length and adds spaces at the end of it until the length of the string is a multiple of 16. Then it returns this string. 
+The second function is **encryption**. This simply takes a string message, a key, and initial vector, encodes the string using AES, and then encodes it using base64. Then it returns this string. 
+
+### user_input.py
+
+#### description:
+This file names universial variables that will be used through the program. It does this by referencing a file that has been created by the **front_end.py** in the current directory. One exception to this is the *keys_write_path*. This will always be my own personal S3 bucket for sake of security. 
+
+### run.py
+
+#### description:
+This is the main run function and also where the pySpark is used. Everything is initiallized and then eventually run within this function. It has an if statement to deal with the fact that if I am encrypting (rather than decrypting), we need to write the keys to my S3. There is also a timer to keep an eye on how long it took for the function to run. 
+
+### front_end.py
+
+#### description:
+This is where my Flask program is stored. It references various forms and .html files that are stored in their proper place. My hope is that their construction is self-evident, however, feel free to contact me with questions. 
+
+## Future Work
+While this program runs reasonably efficiently and distributes as expected, there are several improvements to be made. 
+* Writing to an S3 Bucket is a pain. You cannot append to the end of an existing file in the bucket, which makes it impossible for all your nodes to simultaneously write to the same file. This led to having to push all the data into a single node causing a memory issue as 400G clearly overwhelmed it. 
+The first solution I employed was to first write to a MySQL database before then copying that into an S3 Bucket. While this works, it caused a huge lag in time. In the case of some smaller batches, this could create a nearly 2x increase in time. It is entirely possible that this could be corrected with more efficient code, but I had not figured it out before this submission. I will update if I do. 
+The second solution I employed was the purchase a larger master node to handle the amount of data being fed into the system. This was significantly faster than the aforementioned around-about method, but it also came with a financial cost. 
+Coming up with a good solution to this problem that can both maximize time and monetary costs is one of the next steps. 
+
+* If I choose to buy bigger computers and more nodes, I wind up with a situation where most of these resources are not being used efficiently (or not used at all). I want to figure out how to gauge what I need when a project is submitted and not waste time/money on uneeded power. My understanding is that [Kubernetes](https://kubernetes.io/) would allow me to do this, since a majority of my work is embarrassingly-parallizable. However, given the limited time I was able to spend on this project, I was not able to test out this as much as I would like. It is an obvious next step. 
 
 ## Contact Information
 * Samuel David Judge
