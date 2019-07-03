@@ -18,13 +18,13 @@ def login():
         columns = form.columns.data
         en_or_de = form.en_or_de.data
         delimiter = form.delimiter.data
-        file = open("system_info.csv","w+")
+        file = open("/home/ubuntu/InvisibleMe/source_code/system_info.csv","w+")
         for info in [s3_bucket_location, write_path, en_or_de, delimiter,columns]:
             if info == columns:
                 file.writelines(info)
             else:
                 file.writelines(info+",")
-        command = "spark-submit run.py"
+        command = "spark-submit /home/ubuntu/InvisibleMe/source_code/run.py"
         os.system(command)
         return redirect('/success')
     return render_template('form.html', form=form)

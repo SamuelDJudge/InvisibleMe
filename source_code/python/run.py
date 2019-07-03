@@ -18,7 +18,7 @@ conf = conf.setMaster("local[*]")
 sc   = SparkContext(conf = conf)
 spark = SparkSession(sc)
 
-if True:
+if __name__ == "__main__":
 # Spark Encryption
     initial_file = sc.textFile(file_path).map(cleaning_data)
     data_frame = initial_file.toDF()
