@@ -13,8 +13,7 @@ from user_input import *
 ### and then returns a Row with schema:
 ### "i" = transformed row[i] or i = transformed row[i] based on whether the row was specified or not.
 
-#def cleaning_data(input_row: list) -> Row:
-def cleaning_data(input_row):
+def cleaning_data(input_row: list) -> Row:
     row_dict = {}
 
     if en_or_de.lower() == "encryption":
