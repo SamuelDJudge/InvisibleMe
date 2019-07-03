@@ -84,7 +84,7 @@ This is the main run function and also where the pySpark is used. Everything is 
 This is where my Flask program is stored. It references various forms and .html files that are stored in their proper place. My hope is that their construction is self-evident, however, feel free to contact me with questions. 
 
 ## Scalability
-![Pipeline](linear_growth.pdf)
+![Pipeline](scalability.png)
 
 ## Future Work
 While this program runs reasonably efficiently and distributes as expected, there are several improvements to be made. 
