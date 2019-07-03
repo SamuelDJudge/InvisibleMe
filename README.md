@@ -93,7 +93,9 @@ For this project, I chose to employ the Rijndael Cypher, commonly known as AES (
 For more reading and detail on AES, please read this [article](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) or watch this [video](https://www.youtube.com/watch?v=liKXtikP9F0&t=644s). 
 
 ## Scalability
-The red line represents four nodes and the black line represents one node. We notice the definite increase in speed as we increase nodes, which shows a distribution. 
+
+
+The red dots on the plot represents four nodes and the black dots represents one node. The red and black line are the so-called "line of best fit" for the red and black points, respectively. We notice the definite increase in speed as we increase nodes, which shows a distribution. 
 
 ![Pipeline](scalability.png)
 
