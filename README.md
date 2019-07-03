@@ -3,8 +3,10 @@
 ## Table of Contents
 1. [Problem](README.md#problem)
 1. [Basic Strategy](README.md#basic-strategy)
+1. [Demo](README.md#demo)
 1. [Assumptions](README.md#assumptions)
 1. [Files in Repo](README.md#files-in-repo)
+1. [Accomplishments](README.md#accomplishments)
 1. [Future Work](README.md#future-work)
 1. [Contact Information](README.md#contact-information)
 
@@ -24,6 +26,12 @@ In the age of machine learning, the characteristics of an individual that can be
 The strategy was to allow the user to input **beginning file location**, **write location**, **columns** to be encrypted (or decrypted), whether you want it **encrypted** or **decrypted**, and the **delimiter** separating data on a Flask front end. This is then fed into a Spark program which pulls the correct file, distributes it across multiple nodes, encrypts the information on each node, then returns it back to the main node. From here, the *newly encrypted* file is written back into the EC2 container and the key for the encryption is stored in my personal EC2 bucket. An illustration of my chosen pipeline can be shown above. 
 
 For a majority of the testing of my code, I used [FEC Donation Data](https://www.fec.gov/data/browse-data/?tab=bulk-data) and [White Pages](http://www.odditysoftware.com/download_databases/29_white-pages-data_1.html). 
+
+## Demo
+
+[Here](https://youtu.be/KMAP3Op4jkI) you can see a video of my application in the works. 
+
+In the first part, you can see an example of data that is stored in an S3 Bucket. Then you see the front end, where the information is inputted. Then the program is run and we return to the S3 Bucket to see that our information is now there. Once we look at it, we see that the columns that were specified have been encrypted. 
 
 
 ## Assumptions
@@ -75,6 +83,9 @@ This is the main run function and also where the pySpark is used. Everything is 
 #### description:
 This is where my Flask program is stored. It references various forms and .html files that are stored in their proper place. My hope is that their construction is self-evident, however, feel free to contact me with questions. 
 
+## Accomplishments
+blah
+
 ## Future Work
 While this program runs reasonably efficiently and distributes as expected, there are several improvements to be made. 
 * Writing to an S3 Bucket is a pain. You cannot append to the end of an existing file in the bucket, which makes it impossible for all your nodes to simultaneously write to the same file. This led to having to push all the data into a single node causing a memory issue as 400G clearly overwhelmed it. 
@@ -83,6 +94,8 @@ The second solution I employed was the purchase a larger master node to handle t
 Coming up with a good solution to this problem that can both maximize time and monetary costs is one of the next steps. 
 
 * If I choose to buy bigger computers and more nodes, I wind up with a situation where most of these resources are not being used efficiently (or not used at all). I want to figure out how to gauge what I need when a project is submitted and not waste time/money on uneeded power. My understanding is that [Kubernetes](https://kubernetes.io/) would allow me to do this, since a majority of my work is embarrassingly-parallizable. However, given the limited time I was able to spend on this project, I was not able to test out this as much as I would like. It is an obvious next step. 
+
+* There are several asthetic things I would like to fix. For example, due to the lack of ordering on dictionaries, my columns can shuffle, depending on how I choose to store them. Certainly this is fixible, but I did not find a more beautiful solution yet. 
 
 ## Contact Information
 * Samuel David Judge
