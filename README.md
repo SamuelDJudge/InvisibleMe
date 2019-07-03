@@ -1,28 +1,28 @@
-# Purchase-Analytics Solution by Samuel D. Judge
+# Invisible Me by Samuel D. Judge
 
 ## Table of Contents
 1. [Problem](README.md#problem)
 1. [Basic Strategy](README.md#basic-strategy)
 1. [Assumptions](README.md#assumptions)
-1. [Functions in Program](README.md#functions-in-program)
+1. [Files in Repo](README.md#functions-in-program)
 1. [Contact Information](README.md#contact-information)
 
 ## Problem
 
-Instacart has published a [dataset](https://www.instacart.com/datasets/grocery-shopping-2017) containing 3 million Instacart orders.
+In the age of machine learning, the characteristics of an individual that can be used to personally identify them is constantly changing. Originally an individuals full name, social security number, and home address were considered "identifying." The list has since grown to include biometric information, IP address, devide ID, and even ones academic record. For an interesting perspective on how machine learning is changing this, watch this [video](https://www.youtube.com/watch?v=aircAruvnKk). As a result, many databases that have already been published online will need to be retroactively pulled and encrypted. While encryption is easy to handle on a line-by-line basis, recieving 5 billion lines that needs to be quickly and efficiently encrypted is not plausible for a normal computer system.
 
-*I was told to calculate, for each department, the number of times a product was requested, number of times a product was requested for the first time, and a ratio of those two numbers.*
+[dataset](https://www.instacart.com/datasets/grocery-shopping-2017) containing 3 million Instacart orders.
+
+*Solution:* The goal of this program is to handle this problem of scale. It will use PySpark to distribute the processing of the file across several Amazon EC2 nodes before republishing the data back from whence it came. 
 
 
 ## Basic Strategy
-The general idea behind this program was fairly simple. We had essentially two data sets, each of which contained two important pieces of data. The first was all the products where the important information was the unique product id number and the other was the department where that product was stored. The second data set contained all orders and the important information therein was what product was ordered and whether or not it was a reordered item by the customer. 
-My technique was to first run through the products data set and create two dictionaries. The first dictionary contained keys that were the product ID and the associated element was its department number. I did this by noticing that the product ID was the first element and the department number was the last once I split by commas. The second dictionary was keyed by department numbers and its associated element was a list [0,0,0].
-Once these dictionaries existed, I ran through the orders. Every time I came across an order, I checked it with the products dictionary by key. If such a product existed, the department was returned and I went to the department dictionary. Within that dictionary, I keyed in the department number and then changed the list accordingly: I always added one to the first element. If the order was a first time order, I added one to the second element as well. Then the third element was calcuated simply by taking the ratio of the second to the first. 
+
 
 ## Assumptions
-* There is an assumption that the data matches the form that was told to us in the project repo. However, there are checks for this throughout the code. 
-* This program is also using sys library. It only uses it in one place: when the function is called at the very end in order to be run from the run.sh. The programs themselves should work without or without it. 
-* Keeping in line with statement above, the very first line of code imports this library. 
+* I am assuming that the user is storing their information in an Amazon S3 bucket. 
+* I am assuming that the information is relational and organized in a .csv type format, though the program does allow for flexibility as to what the delimiter is. 
+* There are multiple requirements for technology, specified in the _requirements.txt_ file. 
 
 
 ## Functions in Program 
