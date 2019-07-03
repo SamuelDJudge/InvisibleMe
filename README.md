@@ -6,7 +6,7 @@
 1. [Demo](README.md#demo)
 1. [Assumptions](README.md#assumptions)
 1. [Files in Repo](README.md#files-in-repo)
-1. [Accomplishments](README.md#accomplishments)
+1. [Scalability](README.md#scalability)
 1. [Future Work](README.md#future-work)
 1. [Contact Information](README.md#contact-information)
 
@@ -83,8 +83,8 @@ This is the main run function and also where the pySpark is used. Everything is 
 #### description:
 This is where my Flask program is stored. It references various forms and .html files that are stored in their proper place. My hope is that their construction is self-evident, however, feel free to contact me with questions. 
 
-## Accomplishments
-blah
+## Scalability
+![Pipeline](linear_growth.pdf)
 
 ## Future Work
 While this program runs reasonably efficiently and distributes as expected, there are several improvements to be made. 
