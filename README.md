@@ -18,6 +18,8 @@ In the age of machine learning, the characteristics of an individual that can be
 
 ## Basic Strategy
 
+![Pipeline](pipeline_sdj.png)
+
 
 ## Assumptions
 * I am assuming that the user is storing their information in an Amazon S3 bucket. 
