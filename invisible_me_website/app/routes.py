@@ -24,7 +24,7 @@ def login():
                 file.writelines(info)
             else:
                 file.writelines(info+",")
-        command = "spark-submit /home/ubuntu/InvisibleMe/source_code/run.py"
+        command = "spark-submit /home/ubuntu/InvisibleMe/source_code/python/run.py"
         os.system(command)
         return redirect('/success')
     return render_template('form.html', form=form)
