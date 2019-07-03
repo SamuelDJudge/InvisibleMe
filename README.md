@@ -3,6 +3,7 @@
 ## Table of Contents
 1. [Problem](README.md#problem)
 1. [Basic Strategy](README.md#basic-strategy)
+1. [Running Instructions](README.md#running-instructions)
 1. [Demo](README.md#demo)
 1. [Assumptions](README.md#assumptions)
 1. [Files in Repo](README.md#files-in-repo)
@@ -25,6 +26,26 @@ In the age of machine learning, the characteristics of an individual that can be
 The strategy was to allow the user to input **beginning file location**, **write location**, **columns** to be encrypted (or decrypted), whether you want it **encrypted** or **decrypted**, and the **delimiter** separating data on a Flask front end. This is then fed into a Spark program which pulls the correct file, distributes it across multiple nodes, encrypts the information on each node, then returns it back to the main node. From here, the *newly encrypted* file is written back into the EC2 container and the key for the encryption is stored in my personal EC2 bucket. An illustration of my chosen pipeline can be shown above. 
 
 For a majority of the testing of my code, I used [FEC Donation Data](https://www.fec.gov/data/browse-data/?tab=bulk-data) and [White Pages](http://www.odditysoftware.com/download_databases/29_white-pages-data_1.html). 
+
+## Running Instructions
+### Main Method
+* Spin up an EC2 instance (or cluster). 
+* Make sure Spark is installed on all the instances.
+* Clone this repo to the master EC2 node. 
+* Go to InvisibleMe/invisible_me_website/ in your terminal.
+* Type "chmod +x front_end.py"
+* Type "python front_end.py"
+* Go to the website that is specified. 
+* Enter the information as prompted. 
+* Hit Submit. 
+
+### Secondary Method
+* Spin up an EC2 instance (or cluster). 
+* Make sure Spark is installed on all the instances.
+* Clone this repo to the master EC2 node. 
+* Go to InvisibleMe/source_code/python
+* Edit user_input.py to the correct values. 
+* Enter Spark-Submit run.py
 
 ## Demo
 
