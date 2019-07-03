@@ -15,8 +15,6 @@
 
 In the age of machine learning, the characteristics of an individual that can be used to personally identify them is constantly changing. Originally an individuals full name, social security number, and home address were considered "identifying." The list has since grown to include biometric information, IP address, devide ID, and even ones academic record. For an interesting perspective on how machine learning is changing this, watch this [video](https://www.youtube.com/watch?v=aircAruvnKk). As a result, many databases that have already been published online will need to be retroactively pulled and encrypted. While encryption is easy to handle on a line-by-line basis, recieving 5 billion lines that needs to be quickly and efficiently encrypted is not plausible for a normal computer system.
 
-[dataset](https://www.instacart.com/datasets/grocery-shopping-2017) containing 3 million Instacart orders.
-
 *Solution:* The goal of this program is to handle this problem of scale. It will use PySpark to distribute the processing of the file across several Amazon EC2 nodes before republishing the data back from whence it came. 
 
 
