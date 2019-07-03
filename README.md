@@ -6,6 +6,7 @@
 1. [Demo](README.md#demo)
 1. [Assumptions](README.md#assumptions)
 1. [Files in Repo](README.md#files-in-repo)
+1. [Encryption](README.md#encryption)
 1. [Scalability](README.md#scalability)
 1. [Future Work](README.md#future-work)
 1. [Contact Information](README.md#contact-information)
@@ -32,6 +33,8 @@ For a majority of the testing of my code, I used [FEC Donation Data](https://www
 [Here](https://youtu.be/KMAP3Op4jkI) you can see a video of my application in the works. 
 
 In the first part, you can see an example of data that is stored in an S3 Bucket. Then you see the front end, where the information is inputted. Then the program is run and we return to the S3 Bucket to see that our information is now there. Once we look at it, we see that the columns that were specified have been encrypted. 
+
+[Here](https://www.youtube.com/watch?v=Bey4XXJAqS8) you can watch a video of my presentation where I discuss this project, along with my [slides](https://docs.google.com/presentation/d/1ZI-L-aVYDdLWXpPOYjrs-DwDfPyZH8OSLtSQ9Szt1EA/edit?usp=sharing). 
 
 
 ## Assumptions
@@ -83,8 +86,20 @@ This is the main run function and also where the pySpark is used. Everything is 
 #### description:
 This is where my Flask program is stored. It references various forms and .html files that are stored in their proper place. My hope is that their construction is self-evident, however, feel free to contact me with questions. 
 
+## Encryption
+For this project, I chose to employ the Rijndael Cypher, commonly known as AES (Advanced Encryption System). I chose this for three reasons, primarily: 
+* it scales linearly (i.e. log(n))
+* it provides a one-to-one mapping, given a key and name. That means that Samuel Judge and Herald Gerard will be encrypted uniquely, so they can still be seen as "person A" and "person B," for sake of research. 
+* it is a symmetric code. That is to say, there is one unique key (and initial vector) that one person holds. This seemed an easier proposition than trying to put a secure, asymmetric key system into place. 
+
+For more reading and detail on AES, please read this [article](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) or watch this [video](https://www.youtube.com/watch?v=liKXtikP9F0&t=644s). 
+
 ## Scalability
+The red line represents four nodes and the black line represents one node. We notice the definite increase in speed as we increase nodes, which shows a distribution. 
+
 ![Pipeline](scalability.png)
+
+We also note that this is linear. We **emphasize** that this is not shocking. This does not show anything in particular except that things are working *as expected*. 
 
 ## Future Work
 While this program runs reasonably efficiently and distributes as expected, there are several improvements to be made. 
@@ -98,6 +113,6 @@ Coming up with a good solution to this problem that can both maximize time and m
 * There are several asthetic things I would like to fix. For example, due to the lack of ordering on dictionaries, my columns can shuffle, depending on how I choose to store them. Certainly this is fixible, but I did not find a more beautiful solution yet. 
 
 ## Contact Information
-* Samuel David Judge
+* [Samuel David Judge](https://www.linkedin.com/in/samueldjudge/)
 * Samuel.D.Judge@gmail.com
 * 269.921.0330
