@@ -33,8 +33,8 @@ For a majority of the testing of my code, I used [FEC Donation Data](https://www
 * Make sure Spark is installed on all the instances.
 * Clone this repo to the master EC2 node. 
 * Go to InvisibleMe/invisible_me_website/ in your terminal.
-* Type "chmod +x front_end.py"
-* Type "python front_end.py"
+* Type "chmod +x front_end.py".
+* Type "python front_end.py".
 * Go to the website that is specified. 
 * Enter the information as prompted. 
 * Hit Submit. 
@@ -43,9 +43,9 @@ For a majority of the testing of my code, I used [FEC Donation Data](https://www
 * Spin up an EC2 instance (or cluster). 
 * Make sure Spark is installed on all the instances.
 * Clone this repo to the master EC2 node. 
-* Go to InvisibleMe/source_code/python
+* Go to InvisibleMe/source_code/python.
 * Edit user_input.py to the correct values. 
-* Enter Spark-Submit run.py
+* Enter Spark-Submit run.py.
 
 ## Demo
 
