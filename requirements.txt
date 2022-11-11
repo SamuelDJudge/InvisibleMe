@@ -4,7 +4,7 @@ botocore==1.12.181
 Crypto==1.4.1 
 base64==1.0.0 
 time==1.0.0
-pyspark==2.4.3 
+pyspark==3.2.2 
 flask_wtf==0.14.2 
 wtforms==2.2.1
 flask==1.0.3 
